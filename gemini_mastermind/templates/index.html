@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Mastermind Core</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div id="apiKeyOverlay" class="overlay">
+        <div class="card glass-panel center-content">
+            <h2>🔐 Access Core Intelligence</h2>
+            <p>Please enter your Gemini API Key.</p>
+            <input type="password" id="apiKeyInput" placeholder="Enter API Key..." class="input-field ltr-input">
+            <button onclick="saveApiKey()" class="btn-primary">Connect</button>
+        </div>
+    </div>
+
+    <div id="contentModal" class="overlay hidden">
+        <div class="card glass-panel modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Title</h3>
+                <button onclick="closeModal('contentModal')" class="close-btn">×</button>
+            </div>
+            <div id="modalBody" class="modal-body-text persian-content"></div>
+        </div>
+    </div>
+
+    <div id="zoomModal" class="overlay hidden">
+        <div class="card glass-panel zoom-content">
+            <div class="modal-header">
+                <h3 id="zoomTitle">Source View</h3>
+                <button onclick="closeModal('zoomModal')" class="close-btn">×</button>
+            </div>
+            <div id="zoomBody" class="modal-body-text persian-content"></div>
+        </div>
+    </div>
+
+    <div class="app-wrapper">
+        <aside id="appSidebar" class="sidebar glass-panel">
+            <div class="sidebar-header">
+                <h3>Knowledge Base 📂</h3>
+                <button onclick="toggleSidebar()" class="close-sidebar-btn">×</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterTitles()" class="input-field">
+            </div>
+            <div id="savedList" class="saved-list"></div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <button onclick="toggleSidebar()" class="menu-btn">☰ Knowledge Base</button>
+                <div class="header-text">
+                    <h1>🎓 Gemini Mastermind</h1>
+                    <p class="subtitle">Full-Stack Intelligence System</p>
+                </div>
+            </header>
+
+            <div class="card glass-panel input-section">
+                <h3>📥 Feed the Mastermind</h3>
+                <div class="input-row">
+                    <input type="text" id="contentTitle" placeholder="Title (e.g., Force Formula)" class="input-field">
+                </div>
+                <textarea id="contentInput" placeholder="Use `F=ma` for inline. Use $$E=mc^2$$ for block equations."></textarea>
+                <button onclick="saveContent()" class="btn-secondary">Save to Database</button>
+                <span id="saveStatus" class="status-msg"></span>
+            </div>
+
+            <div class="card glass-panel question-section">
+                <h3>🧠 Ask a Question</h3>
+                <div class="chat-interface">
+                    <input type="text" id="questionInput" placeholder="Ask Gemini..." class="input-field">
+                    <button onclick="askGemini()" class="btn-primary">Analyze & Solve</button>
+                </div>
+            </div>
+
+            <div id="resultArea" class="result-container hidden">
+                <div class="card glass-panel answer-box">
+                    <h4>Gemini's Solution 💡</h4>
+                    <div id="geminiResponse" class="content-body persian-content"></div>
+                </div>
+
+                <div class="sources-wrapper">
+                    <h4>Referenced Sources 📚 (Click to Zoom)</h4>
+                    <div id="sourcesContainer" class="sources-grid"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
